@@ -10,6 +10,16 @@ builder.Services.Configure<BookStoreDatabaseSettings>(
 
 builder.Services.AddSingleton<BooksService>();
 
+builder.Services.AddCors(
+  o => o.AddPolicy("CorsPolicy", builder => { 
+        builder 
+        .AllowAnyMethod() 
+        .AllowAnyHeader() 
+        .AllowCredentials() 
+        .WithOrigins("http://localhost:4200"); 
+      })
+);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,6 +38,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.UseCors("CorsPolicy");
 
 app.Run();
 
