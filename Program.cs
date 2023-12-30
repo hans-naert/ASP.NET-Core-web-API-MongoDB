@@ -13,8 +13,8 @@ builder.Services.Configure<BookStoreDatabaseSettings>(
 builder.Services.AddSingleton<BooksService>();
 
 builder.Services.AddAuthentication()
-    .AddJwtBearer();
-  //.AddJwtBearer("LocalAuthIssuer");
+    //.AddJwtBearer()
+    .AddJwtBearer("Firebase");
 
 builder.Services.AddCors(
   o => o.AddPolicy("CorsPolicy", builder => { 
@@ -31,7 +31,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "BookStoreApi", Version = "v1" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    c.AddSecurityDefinition("Firebase", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. 
           Enter 'Bearer' [space] and then your token in the text input below.
@@ -49,10 +49,10 @@ builder.Services.AddSwaggerGen(c =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    Id = "Firebase"
                 },
                 Scheme = "oauth2",
-                Name = "Bearer",
+                Name = "Firebase",
                 In = ParameterLocation.Header,
             },
             new List<string>()
