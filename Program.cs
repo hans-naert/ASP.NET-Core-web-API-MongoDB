@@ -22,7 +22,7 @@ builder.Services.AddCors(
         .AllowAnyMethod() 
         .AllowAnyHeader() 
         .AllowCredentials() 
-        .WithOrigins("http://localhost:4200"); 
+        .WithOrigins("https://angular-webapi.web.app", "http://localhost:4200"); 
       })
 );
 
